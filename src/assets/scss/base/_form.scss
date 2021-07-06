@@ -1,0 +1,42 @@
+@import "../abstracts/variables";
+
+.base-form {
+    width: 400px;
+    margin: 30px auto;
+    border: 1px solid $light-secondary;
+    padding: 20px;
+    box-shadow: 0 2px 3px $light-gray;
+
+    .form-group {
+        margin: 10px auto;
+    }
+
+    .form-group {
+        label {
+            display: block;
+            color: $gray;
+            margin-bottom: 6px;
+            &[aria-invalid="true"]{
+                color: red
+            }
+        }
+
+        input {
+            font: inherit;
+            width: 100%;
+            padding: 0.6rem 1.2rem;
+            box-sizing: border-box;
+            border: 1px solid $light-gray;
+
+            &:focus {
+                outline: none;
+                border: 1px solid $primary;
+                background-color: $light-secondary;
+            }
+
+            &[aria-invalid="true"] {
+                border: 2px solid red;
+            }
+        }
+    }
+}
