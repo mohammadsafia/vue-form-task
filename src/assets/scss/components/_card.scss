@@ -1,0 +1,11 @@
+@import "../abstracts/variables";
+.custom-card {
+    width: 400px;
+    margin: 70px auto;
+    border: 1px solid $light-secondary;
+    padding: 20px;
+    box-shadow: 0 2px 3px $light-gray;
+    @include respond(tab-port){
+        width: 300px;
+    }
+}

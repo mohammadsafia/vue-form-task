@@ -1,12 +1,12 @@
 <template>
-  <form class="base-form">
+  <div class="custom-card">
     <slot></slot>
-  </form>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'BaseForm',
+  name: 'TheCard',
 };
 </script>
 

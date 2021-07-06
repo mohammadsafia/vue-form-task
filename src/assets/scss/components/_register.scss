@@ -1,0 +1,18 @@
+.hobbies {
+    .hobby-list {
+        &__hobby {
+            display: flex;
+            align-items: center;
+
+            .input-form-group {
+                margin: 0;
+                flex: auto;
+            }
+        }
+
+        &__delete-image {
+            height: 3rem;
+        }
+    }
+
+}
