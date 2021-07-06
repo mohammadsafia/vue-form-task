@@ -1,15 +1,15 @@
 <template>
   <header class="main-header">
     <div class="logo">
-      <a href="#">Vue - Complete Guide</a>
+      <router-link to="/">Vue - Complete Guide</router-link>
     </div>
     <nav class="main-header__nav">
       <ul class="main-header__nav__items">
         <li>
-          <a href="#">Sign Up</a>
+          <router-link to="/register">Sign Up</router-link>
         </li>
         <li>
-          <a href="#">Sign In</a>
+          <router-link to="/login">Sign In</router-link>
         </li>
       </ul>
     </nav>

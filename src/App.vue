@@ -1,18 +1,16 @@
 <template>
   <div id="app">
     <the-header />
-    <the-login/>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import TheHeader from './components/layout/TheHeader.vue';
-import TheLogin from './components/auth/TheLogin';
 export default {
   name: 'App',
   components: {
     TheHeader,
-    TheLogin
   },
 };
 </script>
