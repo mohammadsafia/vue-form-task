@@ -26,12 +26,19 @@ export default {
     };
   },
   methods: {
-    onSubmit() {
+    async onSubmit() {
       const formData = {
         email: this.email,
         password: this.password,
+        returnSecureToken: true,
       };
-      console.log(formData);
+      await this.$store.dispatch('signInAction', formData);
+      this.resetStateHandler();
+      await this.$router.push('/home')
+    },
+    resetStateHandler() {
+      this.email = '';
+      this.password = '';
     },
   },
 };

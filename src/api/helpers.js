@@ -1,15 +1,11 @@
-import axios from "axios";
+import axios from 'axios';
 
-export const apiBaseUrl = process.env["VUE_APP_API_DOMAIN"];
+export const apiBaseUrl = process.env['VUE_APP_API_DOMAIN'];
+export const apiDB = process.env['VUE_APP_API_DB'];
+
 export const getAuthenticatedAxios = () => {
-    const token = localStorage.getItem("token");
-    const headers = {
-        Authorization: `Bearer ${token}`
-    };
-
     return axios.create({
-        baseURL: apiBaseUrl,
-        headers
+        baseURL: `${ apiDB }`,
     });
 };
 

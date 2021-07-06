@@ -8,11 +8,11 @@
       <CustomSelectInput v-model="country" label="Country" name="country" :options="countryOptions" />
       <div class="hobbies">
         <h4>Add some Hobbies</h4>
-        <button class="custom-btn  custom-btn-primary" @click="onAddHobby" type="button">Add Hobby</button>
+        <button class="custom-btn  custom-btn-primary" @click="addHobbyHandler" type="button">Add Hobby</button>
         <div class="hobby-list">
-          <div class="hobby-list__hobby" v-for="hobbyInput in hobbyInputs" :key="hobbyInput.id">
-            <CustomInput v-model="hobbyInput.value" type="text" name="hobby" />
-            <img @click="onDeleteHobby(hobbyInput.id)" class="hobby-list__delete-image icon-btn" src="../../assets/images/delete.svg" alt="Delete icon to remove hobby" />
+          <div class="hobby-list__hobby" v-for="hobby in hobbies" :key="hobby.id">
+            <CustomInput v-model="hobby.value" type="text" name="hobby" />
+            <img @click="deleteHobbyHandler(hobby.id)" class="hobby-list__delete-image icon-btn" src="../../assets/images/delete.svg" alt="Delete icon to remove hobby" />
           </div>
         </div>
       </div>
@@ -46,7 +46,7 @@ export default {
       password: '',
       confirmPassword: '',
       country: 'usa',
-      hobbyInputs: [],
+      hobbies: [],
       terms: false,
       countryOptions: [
         { id: randomIdGenerator('item'), label: 'USA', value: 'usa' },
@@ -56,27 +56,45 @@ export default {
     };
   },
   methods: {
-    onAddHobby() {
+    addHobbyHandler() {
       const newHobby = {
         id: randomIdGenerator('hobby'),
         value: '',
       };
-      this.hobbyInputs.push(newHobby);
+      this.hobbies.push(newHobby);
     },
-    onDeleteHobby(id) {
-      this.hobbyInputs = this.hobbyInputs.filter(hobby => hobby.id !== id);
+    deleteHobbyHandler(id) {
+      this.hobbies = this.hobbies.filter(hobby => hobby.id !== id);
     },
-    onSubmit() {
+    async onSubmit() {
       const formData = {
         email: this.email,
         age: this.age,
         password: this.password,
         confirmPassword: this.confirmPassword,
         country: this.country,
-        hobbies: this.hobbyInputs.map(hobby => hobby.value),
+        hobbies: this.hobbies.map(hobby => hobby.value),
         terms: this.terms,
+        returnSecureToken: true,
       };
-      console.log(formData);
+      try {
+        await this.$store.dispatch('signUpAction', formData);
+        this.resetStateHandler();
+        await this.$router.push('/home')
+      }
+      catch (e) {
+        console.error(e);
+      }
+    },
+
+    resetStateHandler() {
+      this.email = '';
+      this.age = '';
+      this.password = '';
+      this.confirmPassword = '';
+      this.country = 'usa';
+      this.hobbies = [];
+      this.terms = false;
     },
   },
 };
