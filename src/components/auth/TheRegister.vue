@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="input inline">
-        <input type="checkbox" id="terms" v-model="terms">
+        <input type="checkbox" id="terms" v-model="terms" class="mr-2">
         <label for="terms" :class="getFieldValidationError('terms')">Accept Terms of Use</label>
       </div>
       <button class="btn  btn-outline-info btn-lg" type="submit">Submit</button>
