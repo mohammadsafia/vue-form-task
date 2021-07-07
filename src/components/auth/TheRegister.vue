@@ -18,7 +18,7 @@
       </div>
       <div class="input inline">
         <input type="checkbox" id="terms" v-model="terms">
-        <label for="terms">Accept Terms of Use</label>
+        <label for="terms" :class="getFieldValidationError('terms')">Accept Terms of Use</label>
       </div>
       <button class="btn  btn-outline-info btn-lg" type="submit">Submit</button>
     </form>
@@ -29,7 +29,7 @@
 import CustomInput from '../shared/CustomInput';
 import TheCard from '../shared/TheCard';
 import CustomSelectInput from '../shared/CustomSelectInput';
-import { randomIdGenerator } from '../../utils';
+import { errorAlert, randomIdGenerator } from '../../utils';
 
 export default {
   name: 'TheRegister',
@@ -53,6 +53,7 @@ export default {
         { id: randomIdGenerator('item'), label: 'Jordan', value: 'jordan' },
         { id: randomIdGenerator('item'), label: 'Saudi Arabia', value: 'saudiArabia' },
       ],
+      errors: [],
     };
   },
   methods: {
@@ -77,10 +78,13 @@ export default {
         terms: this.terms,
         returnSecureToken: true,
       };
+
+      if (this.validationHandler(formData)) return;
+
       try {
         await this.$store.dispatch('signUpAction', formData);
         this.resetStateHandler();
-        await this.$router.push('/home')
+        await this.$router.push('/welcome');
       }
       catch (e) {
         console.error(e);
@@ -95,6 +99,37 @@ export default {
       this.country = 'usa';
       this.hobbies = [];
       this.terms = false;
+    },
+    validationHandler(formData) {
+      if (formData.password !== formData.confirmPassword) {
+        errorAlert('The password must be matched');
+        this.errors.push({ name: 'password', value: 'text-danger' });
+        return true;
+      }
+      if (formData.hobbies.length === 0) {
+        errorAlert('You must have at least one hobby');
+        return true;
+      }
+      if (!formData.terms) {
+        errorAlert('You must accept terms of use to complete');
+        this.errors.push({ name: 'terms', value: 'text-danger' });
+        return true;
+      }
+      return false;
+    },
+    getFieldValidationError(name) {
+      const field = this.errors.find(f => f.name === name);
+      if (field) {
+        return field.value;
+      }
+      return '';
+    },
+  },
+  watch: {
+    terms(val) {
+      if (val) {
+        this.errors = this.errors.filter(e => e.name !== 'terms');
+      }
     },
   },
 };

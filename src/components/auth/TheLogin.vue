@@ -32,9 +32,13 @@ export default {
         password: this.password,
         returnSecureToken: true,
       };
-      await this.$store.dispatch('signInAction', formData);
-      this.resetStateHandler();
-      await this.$router.push('/home')
+     try {
+       await this.$store.dispatch('signInAction', formData);
+       this.resetStateHandler();
+       await this.$router.push('/welcome')
+     }catch (e){
+       console.error(e);
+     }
     },
     resetStateHandler() {
       this.email = '';

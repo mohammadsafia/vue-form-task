@@ -1,7 +1,7 @@
 <template>
   <header class="main-header">
     <div class="logo">
-      <router-link to="/home">Vue - Complete Guide</router-link>
+      <router-link to="/">Vue - Complete Guide</router-link>
     </div>
     <nav class="main-header__nav">
       <ul class="main-header__nav__items">
@@ -12,7 +12,7 @@
           <router-link to="/login">Sign In</router-link>
         </li>
         <li v-if="isUserAuth">
-          <router-link to="/home">Home</router-link>
+          <router-link to="/welcome">Welcome</router-link>
         </li>
         <li v-if="isUserAuth">
           <img @click="logoutHandler" class="icon-btn" src="../../assets/images/logout.svg" alt="logout icon" />

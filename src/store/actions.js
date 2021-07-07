@@ -46,8 +46,7 @@ const actions = {
         if (!context.state.accessToken) return;
 
         try {
-            const response = await Api.auth.createUser({ data, token });
-            console.log(response);
+            await Api.auth.createUser({ data, token });
         }
         catch (e) {
             console.error(e);

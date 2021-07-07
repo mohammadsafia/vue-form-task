@@ -2,6 +2,7 @@
   <div class="input-form-group">
     <label :for="name">{{ label }}</label>
     <input
+        required
         autocomplete="off"
         :type="type"
         v-on="$listeners"
